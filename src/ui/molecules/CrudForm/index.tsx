@@ -1,4 +1,5 @@
-import { ReactElement } from 'react';
+import { ReactElement, useEffect } from 'react';
+import { FormProvider } from 'react-hook-form';
 import { BaseRepository } from '../../../common/commonClasses.ts';
 import { useCrud } from '../../../common/useCrud.ts';
 import { BaseModel } from '../../../common/commonInterfaces.ts';
@@ -9,29 +10,33 @@ import CrudBody from './CrudBody';
 interface Props<T extends BaseModel> {
   moduleName: string;
   repository: BaseRepository<T>;
-  updateStore?: boolean;
   formElement: T;
+  updateStore?: boolean;
 }
 
 const CrudForm = <T extends BaseModel>({
   moduleName,
   repository,
-  updateStore = true,
   formElement,
+  updateStore = true,
 }: Props<T>): ReactElement => {
-  useCrud<T>({
+  const { methods, fetchDataElement } = useCrud<T>({
     moduleName,
     repository,
     updateStore,
     id: formElement.id,
   });
 
+  useEffect(() => {
+    formElement?.id && fetchDataElement();
+  }, [formElement?.id]);
+
   return (
-    <div>
+    <FormProvider {...methods}>
       <CrudTitle moduleName={moduleName} />
-      <CrudBody moduleName={moduleName} formElement={formElement} />
+      <CrudBody formElement={formElement} />
       <CrudButtons />
-    </div>
+    </FormProvider>
   );
 };
 

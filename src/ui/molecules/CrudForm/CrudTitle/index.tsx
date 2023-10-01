@@ -5,7 +5,7 @@ interface Props {
 }
 
 const CrudTitle = ({ moduleName }: Props): ReactElement => {
-  return <div>{moduleName}</div>;
+  return <div>FORM {moduleName}</div>;
 };
 
 export default CrudTitle;

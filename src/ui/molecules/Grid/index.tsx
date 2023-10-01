@@ -6,19 +6,21 @@ import { BaseModel } from '../../../common/commonInterfaces.ts';
 import GridHeader from './GridHeader';
 import CrudForm from '../CrudForm';
 
-interface Props<T> {
-  moduleName: string;
+interface Props<T extends BaseModel> {
+  moduleNameList: string;
+  moduleNameElement: string;
   repository: BaseRepository<T>;
   updateStore?: boolean;
 }
 
 const Grid = <T extends BaseModel>({
-  moduleName,
+  moduleNameList,
+  moduleNameElement,
   repository,
   updateStore = true,
 }: Props<T>): ReactElement => {
   const { fetchDataList, dataList, setFormElement, formElement } = useList<T>({
-    moduleName,
+    moduleName: moduleNameList,
     repository,
     updateStore,
   });
@@ -49,7 +51,7 @@ const Grid = <T extends BaseModel>({
       </table>
       {formElement && (
         <CrudForm<T>
-          moduleName={moduleName}
+          moduleName={moduleNameElement}
           repository={repository}
           updateStore={updateStore}
           formElement={formElement}
