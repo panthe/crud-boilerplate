@@ -13,11 +13,14 @@ interface Props<T> {
 interface Return<T> {
   fetchDataList: () => void;
   dataList: T[];
+  setFormElement: React.Dispatch<React.SetStateAction<T | undefined>>;
+  formElement?: T;
 }
 
 export const useList = <T>({ moduleName, repository, updateStore = true }: Props<T>): Return<T> => {
   const dispatch = useAppDispatch();
   const [dataList, setDataList] = useState<T[]>([]);
+  const [formElement, setFormElement] = useState<T | undefined>();
 
   const fetchDataList = () => {
     repository
@@ -36,5 +39,7 @@ export const useList = <T>({ moduleName, repository, updateStore = true }: Props
   return {
     fetchDataList,
     dataList,
+    setFormElement,
+    formElement,
   };
 };
