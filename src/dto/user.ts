@@ -1,4 +1,5 @@
 import { BaseRepository } from '../common/commonClasses.ts';
+import { MN_USERS } from '../common/commonConstants.ts';
 
 export interface IUser {
   id: string | number;
@@ -8,7 +9,7 @@ export interface IUser {
 }
 
 class UserRepository extends BaseRepository<IUser> {
-  collection = 'users';
+  collection = MN_USERS;
 
   getMany() {
     return super.getMany();

@@ -1,18 +1,24 @@
 import './App.css';
 import UserRepository, { IUser } from './dto/user.ts';
-import { useSelector } from 'react-redux';
-import { getUsersData } from './store';
-import { useCrud } from './common/useCrud.ts';
+import { useList } from './common/useList.ts';
+import { MN_USERS } from './common/commonConstants.ts';
+import { useEffect } from 'react';
 
 function App() {
   const userRepository: UserRepository = new UserRepository();
-  useCrud<IUser>({ moduleName: 'user', repository: userRepository });
-  const users = useSelector(getUsersData);
+  const { fetchDataList, dataList } = useList<IUser>({
+    moduleName: MN_USERS,
+    repository: userRepository,
+  });
+
+  useEffect(() => {
+    fetchDataList();
+  }, []);
 
   return (
     <div>
       <h2>Users</h2>
-      <ul>{users?.map((user, idx) => <li key={idx}>{user.username}</li>)}</ul>
+      <ul>{dataList?.map((user, idx) => <li key={idx}>{user.username}</li>)}</ul>
     </div>
   );
 }

@@ -1,11 +1,12 @@
 import { AnyAction, CombinedState, combineReducers } from '@reduxjs/toolkit';
-import { usersSlice } from './users';
+import { userSlice, usersSlice } from './users';
 
 const appReducer = combineReducers({
+  user: userSlice.reducer,
   users: usersSlice.reducer,
 });
 
-const rootReducer = (state: CombinedState<any>, action: AnyAction) => {
+const rootReducer = (state: CombinedState<never>, action: AnyAction) => {
   /**
    * Se l'azione è "store/reset" viene passato undefined all'appReducer, impostando
    * tutti gli store su initialValue.

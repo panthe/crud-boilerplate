@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { IUser } from '../../../../dto/user.ts';
 import { setUsers } from '../actions';
+import { MN_USERS } from '../../../../common/commonConstants.ts';
 
 export interface UsersState {
   data: IUser[];
@@ -15,7 +16,7 @@ const initialState: UsersState = {
 };
 
 export const usersSlice = createSlice({
-  name: 'users',
+  name: MN_USERS,
   initialState,
   reducers: {},
   extraReducers: (builder) => {
