@@ -13,7 +13,7 @@ const GridRow = <T extends BaseModel>({ element, setFormElement }: Props<T>): Re
         if (typeof value === 'object') {
           return <td></td>;
         }
-        return <td>{value}</td>;
+        return <td align="left">{value}</td>;
       })}
     </tr>
   );

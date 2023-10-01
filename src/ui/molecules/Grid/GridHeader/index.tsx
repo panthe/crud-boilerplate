@@ -9,7 +9,7 @@ const GridHeader = <T extends BaseModel>({ element }: Props<T>): ReactElement =>
   return (
     <tr>
       {Object.keys(element).map((k) => (
-        <th>{k.toUpperCase()}</th>
+        <th align="left">{k.toUpperCase()}</th>
       ))}
     </tr>
   );
