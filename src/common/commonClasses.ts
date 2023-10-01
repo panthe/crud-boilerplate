@@ -1,4 +1,4 @@
-import { IBaseRepository } from './commonInterfaces.ts';
+import { BaseModel, CrudID, IBaseRepository } from './commonInterfaces.ts';
 import { AxiosResponse } from 'axios';
 import { HttpClient } from './apiClient.ts';
 
@@ -19,10 +19,13 @@ const transform = (response: AxiosResponse): Promise<ApiResponse<never>> => {
   });
 };
 
-export abstract class BaseRepository<T> extends HttpClient implements IBaseRepository<T> {
+export abstract class BaseRepository<T extends BaseModel>
+  extends HttpClient
+  implements IBaseRepository<T>
+{
   protected collection: string | undefined;
 
-  public async get(id: number | string): Promise<ApiResponse<T>> {
+  public async get(id: CrudID): Promise<ApiResponse<T>> {
     const instance = this.createInstance();
     const result = await instance.get(`/${this.collection}/${id}`).then(transform);
     return result as ApiResponse<T>;
@@ -40,13 +43,13 @@ export abstract class BaseRepository<T> extends HttpClient implements IBaseRepos
     return result as ApiResponse<T>;
   }
 
-  public async update(id: number | string, item: T): Promise<ApiResponse<T>> {
+  public async update(id: CrudID, item: T): Promise<ApiResponse<T>> {
     const instance = this.createInstance();
     const result = await instance.put(`/${this.collection}/${id}`, item).then(transform);
     return result as ApiResponse<T>;
   }
 
-  public async delete(id: number | string): Promise<ApiResponse<T>> {
+  public async delete(id: CrudID): Promise<ApiResponse<T>> {
     const instance = this.createInstance();
     const result = await instance.delete(`/${this.collection}/${id}`).then(transform);
     return result as ApiResponse<T>;

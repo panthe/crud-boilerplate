@@ -1,8 +1,8 @@
 import { BaseRepository } from '../common/commonClasses.ts';
 import { MN_USERS } from '../common/commonConstants.ts';
+import { BaseModel, CrudID } from '../common/commonInterfaces.ts';
 
-export interface IUser {
-  id: string | number;
+export interface IUser extends BaseModel {
   name?: string;
   username?: string;
   email?: string;
@@ -15,7 +15,7 @@ class UserRepository extends BaseRepository<IUser> {
     return super.getMany();
   }
 
-  get(id: string | number) {
+  get(id: CrudID) {
     return super.get(id);
   }
 
@@ -23,11 +23,11 @@ class UserRepository extends BaseRepository<IUser> {
     return super.create(data);
   }
 
-  update(id: string | number, data: IUser) {
+  update(id: CrudID, data: IUser) {
     return super.update(id, data);
   }
 
-  delete(id: string | number) {
+  delete(id: CrudID) {
     return super.delete(id);
   }
 }
