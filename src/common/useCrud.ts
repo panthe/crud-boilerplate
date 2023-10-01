@@ -31,6 +31,7 @@ export const useCrud = <T extends BaseModel>({
   const methods = useForm<T>({
     mode: 'onSubmit',
     values: dataElement,
+    defaultValues: dataElement ? JSON.parse(JSON.stringify(dataElement)) : undefined,
   });
 
   const fetchDataElement = () => {

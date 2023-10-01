@@ -1,5 +1,5 @@
 import { ReactElement, useEffect } from 'react';
-import { FormProvider } from 'react-hook-form';
+import { FormProvider, SubmitHandler } from 'react-hook-form';
 import { BaseRepository } from '../../../common/commonClasses.ts';
 import { useCrud } from '../../../common/useCrud.ts';
 import { BaseModel } from '../../../common/commonInterfaces.ts';
@@ -30,12 +30,15 @@ const CrudForm = <T extends BaseModel>({
   useEffect(() => {
     formElement?.id && fetchDataElement();
   }, [formElement?.id]);
+  const onSubmit: SubmitHandler<T> = (data) => console.log('onSubmit', data);
 
   return (
     <FormProvider {...methods}>
-      <CrudTitle moduleName={moduleName} />
-      <CrudBody formElement={formElement} />
-      <CrudButtons />
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <CrudTitle moduleName={moduleName} />
+        <CrudBody formElement={formElement} />
+        <CrudButtons />
+      </form>
     </FormProvider>
   );
 };
