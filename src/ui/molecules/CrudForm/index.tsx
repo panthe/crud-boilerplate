@@ -2,6 +2,9 @@ import { ReactElement } from 'react';
 import { BaseRepository } from '../../../common/commonClasses.ts';
 import { useCrud } from '../../../common/useCrud.ts';
 import { BaseModel } from '../../../common/commonInterfaces.ts';
+import CrudTitle from './CrudTitle';
+import CrudButtons from './CrudButtons';
+import CrudBody from './CrudBody';
 
 interface Props<T extends BaseModel> {
   moduleName: string;
@@ -25,8 +28,9 @@ const CrudForm = <T extends BaseModel>({
 
   return (
     <div>
-      <div>{moduleName}</div>
-      <div>{formElement.id}</div>
+      <CrudTitle moduleName={moduleName} />
+      <CrudBody moduleName={moduleName} formElement={formElement} />
+      <CrudButtons />
     </div>
   );
 };
