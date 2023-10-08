@@ -8,14 +8,10 @@ const appReducer = combineReducers({
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const rootReducer = (state: CombinedState<any>, action: AnyAction) => {
-  /**
-   * Se l'azione è "store/reset" viene passato undefined all'appReducer, impostando
-   * tutti gli store su initialValue.
-   */
+  //"store/reset" action set all the store to their initial value
   if (action.type === 'store/reset') {
     return appReducer(undefined, action);
   }
-
   return appReducer(state, action);
 };
 
