@@ -23,11 +23,6 @@ const Grid = <T extends IBaseModel>({
     repository,
     updateStore,
   });
-  console.log(repository);
-  /*  useEffect(() => {
-    console.log({ formElement });
-  }, [formElement]);*/
-  console.log('grid', repository.list);
 
   return (
     <div>
@@ -35,7 +30,7 @@ const Grid = <T extends IBaseModel>({
       <table>
         {repository.list?.length > 0 && (
           <>
-            <GridHeader key={'header'} repository={repository} element={repository.list[0]} />
+            <GridHeader key={'header'} repository={repository} />
             <tbody>
               {repository.list?.map((element) => (
                 <GridRow

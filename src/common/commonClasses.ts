@@ -1,14 +1,9 @@
-import {
-  IBaseModel,
-  CrudID,
-  IBaseRepository,
-  IQueryString,
-  GridColumnOption,
-} from './commonInterfaces.ts';
+import { IBaseModel, IBaseRepository, IQueryString, GridColumnOption } from './commonInterfaces.ts';
 import { AxiosResponse } from 'axios';
 import { HttpClient } from './apiClient.ts';
 import { MODULE } from './commonConstants.ts';
 import { queryString } from './commonFunctions.ts';
+import { CrudID } from './commonTypes.ts';
 
 export class ApiResponse<T> {
   data?: T;
