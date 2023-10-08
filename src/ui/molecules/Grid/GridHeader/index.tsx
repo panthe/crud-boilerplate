@@ -1,11 +1,11 @@
 import { ReactElement } from 'react';
-import { BaseModel } from '../../../../common/commonInterfaces.ts';
+import { IBaseModel } from '../../../../common/commonInterfaces.ts';
 
-interface Props<T extends BaseModel> {
+interface Props<T extends IBaseModel> {
   element: T;
 }
 
-const GridHeader = <T extends BaseModel>({ element }: Props<T>): ReactElement => {
+const GridHeader = <T extends IBaseModel>({ element }: Props<T>): ReactElement => {
   return (
     <thead>
       <tr>

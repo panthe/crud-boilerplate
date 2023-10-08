@@ -1,4 +1,4 @@
-import { BaseModel, CrudID, IBaseRepository } from './commonInterfaces.ts';
+import { IBaseModel, CrudID, IBaseRepository } from './commonInterfaces.ts';
 import { AxiosResponse } from 'axios';
 import { HttpClient } from './apiClient.ts';
 import { MODULE } from './commonConstants.ts';
@@ -20,7 +20,7 @@ const transform = (response: AxiosResponse): Promise<ApiResponse<never>> => {
   });
 };
 
-export abstract class BaseRepository<T extends BaseModel>
+export abstract class BaseRepository<T extends IBaseModel>
   extends HttpClient
   implements IBaseRepository<T>
 {

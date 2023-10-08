@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import { ApiResponse, BaseRepository } from './commonClasses.ts';
 import { AxiosError } from 'axios';
 import { ACT_SET, MODULE, TYPE_LIST } from './commonConstants.ts';
-import { BaseModel } from './commonInterfaces.ts';
+import { IBaseModel } from './commonInterfaces.ts';
 
-interface Props<T extends BaseModel> {
+interface Props<T extends IBaseModel> {
   moduleName: MODULE;
   repository: BaseRepository<T>;
   updateStore?: boolean;
@@ -18,7 +18,7 @@ interface Return<T> {
   formElement?: T;
 }
 
-export const useList = <T extends BaseModel>({
+export const useList = <T extends IBaseModel>({
   moduleName,
   repository,
   updateStore = true,

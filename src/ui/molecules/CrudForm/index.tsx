@@ -2,20 +2,20 @@ import { ReactElement, useEffect } from 'react';
 import { FormProvider, SubmitHandler } from 'react-hook-form';
 import { BaseRepository } from '../../../common/commonClasses.ts';
 import { useCrud } from '../../../common/useCrud.ts';
-import { BaseModel } from '../../../common/commonInterfaces.ts';
+import { IBaseModel } from '../../../common/commonInterfaces.ts';
 import CrudTitle from './CrudTitle';
 import CrudButtons from './CrudButtons';
 import CrudBody from './CrudBody';
 import { MODULE } from '../../../common/commonConstants.ts';
 
-interface Props<T extends BaseModel> {
+interface Props<T extends IBaseModel> {
   moduleName: MODULE;
   repository: BaseRepository<T>;
   formElement: T;
   updateStore?: boolean;
 }
 
-const CrudForm = <T extends BaseModel>({
+const CrudForm = <T extends IBaseModel>({
   moduleName,
   repository,
   formElement,

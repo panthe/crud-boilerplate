@@ -1,12 +1,12 @@
 import { ReactElement } from 'react';
-import { BaseModel } from '../../../../common/commonInterfaces.ts';
+import { IBaseModel } from '../../../../common/commonInterfaces.ts';
 
-interface Props<T extends BaseModel> {
+interface Props<T extends IBaseModel> {
   element: T;
   setFormElement: React.Dispatch<React.SetStateAction<T | undefined>>;
 }
 
-const GridRow = <T extends BaseModel>({ element, setFormElement }: Props<T>): ReactElement => {
+const GridRow = <T extends IBaseModel>({ element, setFormElement }: Props<T>): ReactElement => {
   return (
     <tr onClick={() => setFormElement(element)}>
       {Object.values(element).map((value, index) => {

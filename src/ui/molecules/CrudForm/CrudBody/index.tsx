@@ -1,12 +1,12 @@
-import { BaseModel } from '../../../../common/commonInterfaces.ts';
+import { IBaseModel } from '../../../../common/commonInterfaces.ts';
 import { ReactElement } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-interface Props<T extends BaseModel> {
+interface Props<T extends IBaseModel> {
   formElement: T;
 }
 
-const CrudBody = <T extends BaseModel>({ formElement }: Props<T>): ReactElement => {
+const CrudBody = <T extends IBaseModel>({ formElement }: Props<T>): ReactElement => {
   const { register } = useFormContext();
 
   return (

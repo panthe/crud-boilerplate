@@ -2,18 +2,18 @@ import { ApiResponse } from './commonClasses.ts';
 
 export type CrudID = number | string | undefined;
 
-export interface BaseModel {
+export interface IBaseModel {
   id?: CrudID;
   created?: Date;
   updated?: Date;
 }
 
-export interface KeyValue {
+export interface IKeyValue {
   id: CrudID;
   description?: string;
 }
 
-export interface IBaseRepository<T extends BaseModel> {
+export interface IBaseRepository<T extends IBaseModel> {
   element: T | undefined;
   list: T[];
 
@@ -23,4 +23,9 @@ export interface IBaseRepository<T extends BaseModel> {
   update(id: CrudID, item: T): Promise<ApiResponse<T>>;
   delete(id: CrudID): Promise<ApiResponse<T>>;
   createOrUpdate(id: CrudID, item: T): Promise<ApiResponse<T>>;
+}
+
+export interface IListFetchParams {
+  skip: number;
+  limit: number;
 }

@@ -4,22 +4,22 @@ import { ApiResponse, BaseRepository } from './commonClasses.ts';
 import { AxiosError } from 'axios';
 import { ACT_SET, MODULE, TYPE_ELEMENT } from './commonConstants.ts';
 import { useForm, UseFormReturn } from 'react-hook-form';
-import { BaseModel, CrudID } from './commonInterfaces.ts';
+import { IBaseModel, CrudID } from './commonInterfaces.ts';
 
-interface Props<T extends BaseModel> {
+interface Props<T extends IBaseModel> {
   moduleName: MODULE;
   repository: BaseRepository<T>;
   id: CrudID;
   updateStore?: boolean;
 }
 
-interface Return<T extends BaseModel> {
+interface Return<T extends IBaseModel> {
   fetchDataElement: () => void;
   methods: UseFormReturn<T>;
   dataElement?: T;
 }
 
-export const useCrud = <T extends BaseModel>({
+export const useCrud = <T extends IBaseModel>({
   moduleName,
   repository,
   updateStore = true,

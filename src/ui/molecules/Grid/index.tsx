@@ -2,18 +2,18 @@ import { BaseRepository } from '../../../common/commonClasses.ts';
 import { ReactElement } from 'react';
 import { useList } from '../../../common/useList.ts';
 import GridRow from './GridRow';
-import { BaseModel } from '../../../common/commonInterfaces.ts';
+import { IBaseModel } from '../../../common/commonInterfaces.ts';
 import GridHeader from './GridHeader';
 import CrudForm from '../CrudForm';
 import { MODULE } from '../../../common/commonConstants.ts';
 
-interface Props<T extends BaseModel> {
+interface Props<T extends IBaseModel> {
   moduleName: MODULE;
   repository: BaseRepository<T>;
   updateStore?: boolean;
 }
 
-const Grid = <T extends BaseModel>({
+const Grid = <T extends IBaseModel>({
   moduleName,
   repository,
   updateStore = true,
