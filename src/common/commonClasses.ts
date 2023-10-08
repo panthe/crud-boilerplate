@@ -56,31 +56,35 @@ export abstract class BaseRepository<T extends BaseModel>
 
   public async get(id: CrudID): Promise<ApiResponse<T>> {
     const instance = this.createInstance();
-    const result = await instance.get(`/${this._moduleName}/${id}`).then(transform);
+    const result = await instance.get(`/${this._moduleName.toLowerCase()}/${id}`).then(transform);
     return result as ApiResponse<T>;
   }
 
   public async getMany(): Promise<ApiResponse<T[]>> {
     const instance = this.createInstance();
-    const result = await instance.get(`/${this._moduleName}`).then(transform);
+    const result = await instance.get(`/${this._moduleName.toLowerCase()}`).then(transform);
     return result as ApiResponse<T[]>;
   }
 
   public async create(item: T): Promise<ApiResponse<T>> {
     const instance = this.createInstance();
-    const result = await instance.post(`/${this._moduleName}`, item).then(transform);
+    const result = await instance.post(`/${this._moduleName.toLowerCase()}`, item).then(transform);
     return result as ApiResponse<T>;
   }
 
   public async update(id: CrudID, item: T): Promise<ApiResponse<T>> {
     const instance = this.createInstance();
-    const result = await instance.put(`/${this._moduleName}/${id}`, item).then(transform);
+    const result = await instance
+      .put(`/${this._moduleName.toLowerCase()}/${id}`, item)
+      .then(transform);
     return result as ApiResponse<T>;
   }
 
   public async delete(id: CrudID): Promise<ApiResponse<T>> {
     const instance = this.createInstance();
-    const result = await instance.delete(`/${this._moduleName}/${id}`).then(transform);
+    const result = await instance
+      .delete(`/${this._moduleName.toLowerCase()}/${id}`)
+      .then(transform);
     return result as ApiResponse<T>;
   }
 
