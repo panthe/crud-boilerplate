@@ -19,7 +19,7 @@ const GridRow = <T extends IBaseModel>({
       {repository.gridColumnOptions.map(
         (k, index) =>
           k.visible && (
-            <td key={`${String(k.linkedField)}${index}`} align={k.align}>
+            <td key={`${String(k.linkedField)}${index}`} align={k.align} width={k.width}>
               {findNestedProp(element, k.linkedField)}
             </td>
           )

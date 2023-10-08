@@ -3,7 +3,6 @@ import { IBaseModel } from '../../../../common/commonInterfaces.ts';
 import { BaseRepository } from '../../../../common/commonClasses.ts';
 
 interface Props<T extends IBaseModel> {
-  element: T;
   repository: BaseRepository<T>;
 }
 
@@ -11,11 +10,14 @@ const GridHeader = <T extends IBaseModel>({ repository }: Props<T>): ReactElemen
   return (
     <thead>
       <tr>
-        {repository.gridColumnOptions.map((k) => (
-          <th key={String(k.linkedField)} align={k.align}>
-            {String(k.linkedField).toUpperCase()}
-          </th>
-        ))}
+        {repository.gridColumnOptions.map((k) => {
+          const keys = String(k.linkedField).split('.');
+          return (
+            <th key={String(k.linkedField)} align={k.align}>
+              {keys[keys.length - 1].toUpperCase()}
+            </th>
+          );
+        })}
       </tr>
     </thead>
   );
