@@ -2,12 +2,12 @@ import { useAppDispatch } from '../store';
 import { useState } from 'react';
 import { ApiResponse, BaseRepository } from './commonClasses.ts';
 import { AxiosError } from 'axios';
-import { ACT_SET } from './commonConstants.ts';
+import { ACT_SET, MODULE, TYPE_ELEMENT } from './commonConstants.ts';
 import { useForm, UseFormReturn } from 'react-hook-form';
 import { BaseModel, CrudID } from './commonInterfaces.ts';
 
 interface Props<T extends BaseModel> {
-  moduleName: string;
+  moduleName: MODULE;
   repository: BaseRepository<T>;
   id: CrudID;
   updateStore?: boolean;
@@ -47,7 +47,8 @@ export const useCrud = <T extends BaseModel>({
 
   const setData = async (data: T) => {
     console.log('setData', `${moduleName}/${ACT_SET}`);
-    updateStore && (await dispatch({ type: `${moduleName}/${ACT_SET}`, payload: data }));
+    updateStore &&
+      (await dispatch({ type: `${moduleName}/${TYPE_ELEMENT}/${ACT_SET}`, payload: data }));
     setDataElement(data);
   };
 

@@ -1,7 +1,8 @@
 import { ReactElement } from 'react';
+import { MODULE } from '../../../../common/commonConstants.ts';
 
 interface Props {
-  moduleName: string;
+  moduleName: MODULE;
 }
 
 const CrudTitle = ({ moduleName }: Props): ReactElement => {

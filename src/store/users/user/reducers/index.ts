@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { IUser } from '../../../../dto/user.ts';
 import { setUser } from '../actions';
-import { MN_USER } from '../../../../common/commonConstants.ts';
+import { MN_USERS, TYPE_ELEMENT } from '../../../../common/commonConstants.ts';
 
 export interface UserState {
   data: IUser | null;
@@ -16,7 +16,7 @@ const initialState: UserState = {
 };
 
 export const userSlice = createSlice({
-  name: MN_USER,
+  name: `${MN_USERS}/${TYPE_ELEMENT}`,
   initialState,
   reducers: {},
   extraReducers: (builder) => {

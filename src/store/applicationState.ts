@@ -6,7 +6,8 @@ const appReducer = combineReducers({
   users: usersSlice.reducer,
 });
 
-const rootReducer = (state: CombinedState<never>, action: AnyAction) => {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const rootReducer = (state: CombinedState<any>, action: AnyAction) => {
   /**
    * Se l'azione è "store/reset" viene passato undefined all'appReducer, impostando
    * tutti gli store su initialValue.

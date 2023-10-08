@@ -11,8 +11,8 @@ const CrudBody = <T extends BaseModel>({ formElement }: Props<T>): ReactElement 
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      {Object.keys(formElement).map((k) => (
-        <input {...register(k)} />
+      {Object.keys(formElement).map((k, index) => (
+        <input key={`${k}${index}`} {...register(k)} />
       ))}
     </div>
   );

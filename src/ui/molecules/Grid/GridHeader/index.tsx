@@ -7,11 +7,15 @@ interface Props<T extends BaseModel> {
 
 const GridHeader = <T extends BaseModel>({ element }: Props<T>): ReactElement => {
   return (
-    <tr>
-      {Object.keys(element).map((k) => (
-        <th align="left">{k.toUpperCase()}</th>
-      ))}
-    </tr>
+    <thead>
+      <tr>
+        {Object.keys(element).map((k) => (
+          <th key={k} align="left">
+            {k.toUpperCase()}
+          </th>
+        ))}
+      </tr>
+    </thead>
   );
 };
 

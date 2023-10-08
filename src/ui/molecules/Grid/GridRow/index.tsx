@@ -8,12 +8,16 @@ interface Props<T extends BaseModel> {
 
 const GridRow = <T extends BaseModel>({ element, setFormElement }: Props<T>): ReactElement => {
   return (
-    <tr key={element.id} onClick={() => setFormElement(element)}>
-      {Object.values(element).map((value) => {
+    <tr onClick={() => setFormElement(element)}>
+      {Object.values(element).map((value, index) => {
         if (typeof value === 'object') {
-          return <td></td>;
+          return <td key={`${value}${index}`}></td>;
         }
-        return <td align="left">{value}</td>;
+        return (
+          <td key={value} align="left">
+            {value}
+          </td>
+        );
       })}
     </tr>
   );

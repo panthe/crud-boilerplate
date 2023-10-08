@@ -6,9 +6,10 @@ import { BaseModel } from '../../../common/commonInterfaces.ts';
 import CrudTitle from './CrudTitle';
 import CrudButtons from './CrudButtons';
 import CrudBody from './CrudBody';
+import { MODULE } from '../../../common/commonConstants.ts';
 
 interface Props<T extends BaseModel> {
-  moduleName: string;
+  moduleName: MODULE;
   repository: BaseRepository<T>;
   formElement: T;
   updateStore?: boolean;
@@ -29,8 +30,16 @@ const CrudForm = <T extends BaseModel>({
 
   useEffect(() => {
     formElement?.id && fetchDataElement();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formElement?.id]);
-  const onSubmit: SubmitHandler<T> = (data) => console.log('onSubmit', data);
+
+  const onSubmit: SubmitHandler<T> = (data) => {
+    console.log('onSubmit', data);
+    const response = repository.createOrUpdate(formElement.id, data);
+    console.log({ response });
+    const responseMany = repository.getMany();
+    console.log({ responseMany });
+  };
 
   return (
     <FormProvider {...methods}>

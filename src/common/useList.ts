@@ -1,26 +1,31 @@
 import { useAppDispatch } from '../store';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ApiResponse, BaseRepository } from './commonClasses.ts';
 import { AxiosError } from 'axios';
-import { ACT_SET } from './commonConstants.ts';
+import { ACT_SET, MODULE, TYPE_LIST } from './commonConstants.ts';
+import { BaseModel } from './commonInterfaces.ts';
 
-interface Props<T> {
-  moduleName: string;
+interface Props<T extends BaseModel> {
+  moduleName: MODULE;
   repository: BaseRepository<T>;
   updateStore?: boolean;
 }
 
 interface Return<T> {
   fetchDataList: () => void;
-  dataList: T[];
   setFormElement: React.Dispatch<React.SetStateAction<T | undefined>>;
+  dataList?: T[];
   formElement?: T;
 }
 
-export const useList = <T>({ moduleName, repository, updateStore = true }: Props<T>): Return<T> => {
+export const useList = <T extends BaseModel>({
+  moduleName,
+  repository,
+  updateStore = true,
+}: Props<T>): Return<T> => {
   const dispatch = useAppDispatch();
-  const [dataList, setDataList] = useState<T[]>([]);
-  const [formElement, setFormElement] = useState<T | undefined>();
+  const [formElement, setFormElement] = useState<T | undefined>(repository.element);
+  const [dataList, setDataList] = useState<T[]>(repository.list);
 
   const fetchDataList = () => {
     repository
@@ -32,9 +37,17 @@ export const useList = <T>({ moduleName, repository, updateStore = true }: Props
   };
 
   const setData = async (data: T[]) => {
-    updateStore && (await dispatch({ type: `${moduleName}/${ACT_SET}`, payload: data }));
+    updateStore &&
+      (await dispatch({ type: `${moduleName}/${TYPE_LIST}/${ACT_SET}`, payload: data }));
+    repository.list = data;
     setDataList(data);
+    console.log('useList', repository.list);
   };
+
+  useEffect(() => {
+    fetchDataList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return {
     fetchDataList,

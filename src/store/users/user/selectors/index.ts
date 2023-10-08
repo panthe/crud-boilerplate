@@ -8,5 +8,5 @@ export const getUserLoader = createSelector(getUserState, (state): boolean => st
 
 export const getUserData = createSelector(
   getUserState,
-  (state): UserState['data'] | null => state?.data || []
+  (state): UserState['data'] | null => state?.data || null
 );
