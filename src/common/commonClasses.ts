@@ -1,7 +1,14 @@
-import { IBaseModel, CrudID, IBaseRepository } from './commonInterfaces.ts';
+import {
+  IBaseModel,
+  CrudID,
+  IBaseRepository,
+  IQueryString,
+  GridColumnOption,
+} from './commonInterfaces.ts';
 import { AxiosResponse } from 'axios';
 import { HttpClient } from './apiClient.ts';
 import { MODULE } from './commonConstants.ts';
+import { queryString } from './commonFunctions.ts';
 
 export class ApiResponse<T> {
   data?: T;
@@ -27,15 +34,25 @@ export abstract class BaseRepository<T extends IBaseModel>
   private _moduleName: MODULE;
   private _element: T | undefined;
   private _list: T[];
+  private _gridColumnOptions: GridColumnOption<T>[];
 
   constructor(moduleName: MODULE) {
     super();
     this._moduleName = moduleName;
     this._list = [];
+    this._gridColumnOptions = [];
   }
 
   get moduleName(): MODULE {
     return this._moduleName;
+  }
+
+  get gridColumnOptions(): GridColumnOption<T>[] {
+    return this._gridColumnOptions;
+  }
+
+  set gridColumnOptions(columns: GridColumnOption<T>[]) {
+    this._gridColumnOptions = columns;
   }
 
   get list(): T[] {
@@ -60,9 +77,10 @@ export abstract class BaseRepository<T extends IBaseModel>
     return result as ApiResponse<T>;
   }
 
-  public async getMany(): Promise<ApiResponse<T[]>> {
+  public async getMany(params?: IQueryString): Promise<ApiResponse<T[]>> {
+    const query = queryString(params) ?? '';
     const instance = this.createInstance();
-    const result = await instance.get(`/${this._moduleName.toLowerCase()}`).then(transform);
+    const result = await instance.get(`/${this._moduleName.toLowerCase()}${query}`).then(transform);
     return result as ApiResponse<T[]>;
   }
 

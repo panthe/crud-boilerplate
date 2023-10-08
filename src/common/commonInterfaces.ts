@@ -1,6 +1,5 @@
 import { ApiResponse } from './commonClasses.ts';
-
-export type CrudID = number | string | undefined;
+import { AlignType, CrudID, Paths } from './commonTypes.ts';
 
 export interface IBaseModel {
   id?: CrudID;
@@ -16,6 +15,7 @@ export interface IKeyValue {
 export interface IBaseRepository<T extends IBaseModel> {
   element: T | undefined;
   list: T[];
+  gridColumnOptions: GridColumnOption<T>[];
 
   get(id: CrudID): Promise<ApiResponse<T>>;
   getMany(): Promise<ApiResponse<T[]>>;
@@ -25,7 +25,21 @@ export interface IBaseRepository<T extends IBaseModel> {
   createOrUpdate(id: CrudID, item: T): Promise<ApiResponse<T>>;
 }
 
+export interface IQueryString {
+  [key: string]: string | string[] | number[] | number | boolean | IKeyValue | null | undefined;
+}
+
 export interface IListFetchParams {
   skip: number;
   limit: number;
+}
+
+export interface GridColumnOption<T extends IBaseModel> {
+  visible: boolean;
+  position: number;
+  linkedField: Paths<T>;
+  type: string;
+  align: AlignType;
+  width: string;
+  sortable: boolean;
 }
