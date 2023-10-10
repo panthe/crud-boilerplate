@@ -1,7 +1,8 @@
 import { ReactElement } from 'react';
 import { IBaseModel } from '../../../../common/commonInterfaces.ts';
 import { BaseRepository } from '../../../../common/commonClasses.ts';
-import { findNestedProp } from '../../../../common/commonFunctions.ts';
+import { getNestedUnknownFieldByPath } from '../../../../common/commonFunctions.ts';
+import { JsonKeyValue } from '../../../../common/commonTypes.ts';
 
 interface Props<T extends IBaseModel> {
   repository: BaseRepository<T>;
@@ -20,7 +21,7 @@ const GridRow = <T extends IBaseModel>({
         (k, index) =>
           k.visible && (
             <td key={`${String(k.linkedField)}${index}`} align={k.align} width={k.width}>
-              {findNestedProp(element, k.linkedField)}
+              {getNestedUnknownFieldByPath(element as JsonKeyValue, k.linkedField)}
             </td>
           )
       )}

@@ -54,3 +54,20 @@ export const findNestedProp = (
   }
   return obj;
 };
+
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+export const getNestedUnknownFieldByPath = (object: JsonKeyValue, path: string): any =>
+  path.split('.').reduce(
+    (accumulator, currentValue, currentIndex) => {
+      if (accumulator && currentValue in accumulator) {
+        return accumulator[currentValue];
+      } else {
+        if (currentIndex === path.split('.').length) {
+          return accumulator;
+        } else {
+          return null;
+        }
+      }
+    },
+    object as unknown as any
+  );
