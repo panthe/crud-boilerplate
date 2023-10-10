@@ -17,14 +17,14 @@ const GridRow = <T extends IBaseModel>({
 }: Props<T>): ReactElement => {
   return (
     <tr onClick={() => setFormElement(element)}>
-      {repository.gridColumnOptions.map(
-        (k, index) =>
-          k.visible && (
-            <td key={`${String(k.linkedField)}${index}`} align={k.align} width={k.width}>
-              {getNestedUnknownFieldByPath(element as JsonKeyValue, k.linkedField)}
-            </td>
-          )
-      )}
+      {repository.gridColumnOptions
+        .filter((col) => col.visible)
+        .sort((col1, col2) => col1.position - col2.position)
+        .map((col, index) => (
+          <td key={`${String(col.linkedField)}${index}`} align={col.align} width={col.width}>
+            {getNestedUnknownFieldByPath(element as JsonKeyValue, col.linkedField)}
+          </td>
+        ))}
     </tr>
   );
 };

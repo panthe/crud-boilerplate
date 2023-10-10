@@ -10,14 +10,17 @@ const GridHeader = <T extends IBaseModel>({ repository }: Props<T>): ReactElemen
   return (
     <thead>
       <tr>
-        {repository.gridColumnOptions.map((k) => {
-          const keys = String(k.linkedField).split('.');
-          return (
-            <th key={String(k.linkedField)} align={k.align}>
-              {keys[keys.length - 1].toUpperCase()}
-            </th>
-          );
-        })}
+        {repository.gridColumnOptions
+          .filter((col) => col.visible)
+          .sort((col1, col2) => col1.position - col2.position)
+          .map((col) => {
+            const nestedFields = String(col.linkedField).split('.');
+            return (
+              <th key={String(col.linkedField)} align={col.align}>
+                {nestedFields[nestedFields.length - 1].toUpperCase()}
+              </th>
+            );
+          })}
       </tr>
     </thead>
   );

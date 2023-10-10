@@ -49,7 +49,7 @@ class UserRepository extends BaseRepository<IUser> {
       },
       {
         visible: true,
-        position: 1,
+        position: 2,
         linkedField: 'address.street',
         type: '',
         align: 'left',
@@ -58,7 +58,7 @@ class UserRepository extends BaseRepository<IUser> {
       },
       {
         visible: true,
-        position: 1,
+        position: 3,
         linkedField: 'address.zipcode',
         type: '',
         align: 'left',
