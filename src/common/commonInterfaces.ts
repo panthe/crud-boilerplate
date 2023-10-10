@@ -1,5 +1,5 @@
 import { ApiResponse } from './commonClasses.ts';
-import { AlignType, CrudID, Paths } from './commonTypes.ts';
+import { AlignType, CrudID, GridColumnsFormattingType, Paths } from './commonTypes.ts';
 
 export interface IBaseModel {
   id?: CrudID;
@@ -42,4 +42,5 @@ export interface GridColumnOption<T extends IBaseModel> {
   align: AlignType;
   width: string;
   sortable: boolean;
+  formatType: GridColumnsFormattingType;
 }

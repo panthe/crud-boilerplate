@@ -1,8 +1,7 @@
 import { ReactElement } from 'react';
 import { IBaseModel } from '../../../../common/commonInterfaces.ts';
 import { BaseRepository } from '../../../../common/commonClasses.ts';
-import { getNestedUnknownFieldByPath } from '../../../../common/commonFunctions.ts';
-import { JsonKeyValue } from '../../../../common/commonTypes.ts';
+import { gridColumnFormatting } from '../../../../utils/gridColumnFormatting.tsx';
 
 interface Props<T extends IBaseModel> {
   repository: BaseRepository<T>;
@@ -22,7 +21,7 @@ const GridRow = <T extends IBaseModel>({
         .sort((col1, col2) => col1.position - col2.position)
         .map((col, index) => (
           <td key={`${String(col.linkedField)}${index}`} align={col.align} width={col.width}>
-            {getNestedUnknownFieldByPath(element as JsonKeyValue, col.linkedField)}
+            {gridColumnFormatting(element, col.linkedField, col.formatType)}
           </td>
         ))}
     </tr>

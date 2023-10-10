@@ -1,7 +1,7 @@
 import { IBaseModel, IBaseRepository, IQueryString, GridColumnOption } from './commonInterfaces.ts';
 import { AxiosResponse } from 'axios';
 import { HttpClient } from './apiClient.ts';
-import { MODULE } from './commonConstants.ts';
+import { MODULE } from './commonTypes.ts';
 import { queryString } from './commonFunctions.ts';
 import { CrudID } from './commonTypes.ts';
 

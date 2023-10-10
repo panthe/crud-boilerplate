@@ -2,8 +2,9 @@ import { useAppDispatch } from '../store';
 import { useEffect, useState } from 'react';
 import { ApiResponse, BaseRepository } from './commonClasses.ts';
 import { AxiosError } from 'axios';
-import { ACT_SET, MODULE, TYPE_LIST } from './commonConstants.ts';
+import { ACT_SET, TYPE_LIST } from './commonConstants.ts';
 import { IBaseModel } from './commonInterfaces.ts';
+import { MODULE } from './commonTypes.ts';
 
 interface Props<T extends IBaseModel> {
   moduleName: MODULE;

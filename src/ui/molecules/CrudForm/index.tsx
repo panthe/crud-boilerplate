@@ -6,7 +6,7 @@ import { IBaseModel } from '../../../common/commonInterfaces.ts';
 import CrudTitle from './CrudTitle';
 import CrudButtons from './CrudButtons';
 import CrudBody from './CrudBody';
-import { MODULE } from '../../../common/commonConstants.ts';
+import { MODULE } from '../../../common/commonTypes.ts';
 
 interface Props<T extends IBaseModel> {
   moduleName: MODULE;

@@ -5,7 +5,7 @@ import GridRow from './GridRow';
 import { IBaseModel } from '../../../common/commonInterfaces.ts';
 import GridHeader from './GridHeader';
 import CrudForm from '../CrudForm';
-import { MODULE } from '../../../common/commonConstants.ts';
+import { MODULE } from '../../../common/commonTypes.ts';
 
 interface Props<T extends IBaseModel> {
   moduleName: MODULE;

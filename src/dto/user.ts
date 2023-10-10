@@ -1,6 +1,6 @@
 import { BaseRepository } from '../common/commonClasses.ts';
 import { IBaseModel } from '../common/commonInterfaces.ts';
-import { MODULE } from '../common/commonConstants.ts';
+import { MODULE } from '../common/commonTypes.ts';
 
 export interface IUser extends IBaseModel {
   name?: string;
@@ -37,6 +37,7 @@ class UserRepository extends BaseRepository<IUser> {
         align: 'left',
         width: 'max-content',
         sortable: true,
+        formatType: undefined,
       },
       {
         visible: true,
@@ -46,6 +47,7 @@ class UserRepository extends BaseRepository<IUser> {
         align: 'left',
         width: 'max-content',
         sortable: true,
+        formatType: undefined,
       },
       {
         visible: true,
@@ -55,6 +57,7 @@ class UserRepository extends BaseRepository<IUser> {
         align: 'left',
         width: 'max-content',
         sortable: true,
+        formatType: undefined,
       },
       {
         visible: true,
@@ -64,6 +67,7 @@ class UserRepository extends BaseRepository<IUser> {
         align: 'left',
         width: 'max-content',
         sortable: true,
+        formatType: undefined,
       },
     ];
   }

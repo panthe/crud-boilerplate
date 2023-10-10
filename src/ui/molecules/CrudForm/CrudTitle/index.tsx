@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { MODULE } from '../../../../common/commonConstants.ts';
+import { MODULE } from '../../../../common/commonTypes.ts';
 
 interface Props {
   moduleName: MODULE;
