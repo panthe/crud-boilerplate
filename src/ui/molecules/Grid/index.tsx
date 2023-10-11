@@ -1,5 +1,5 @@
 import { BaseRepository } from '../../../common/commonClasses.ts';
-import { ReactElement } from 'react';
+import { ReactElement, useRef } from 'react';
 import { useList } from '../../../common/useList.ts';
 import GridRow from './GridRow';
 import { IBaseModel } from '../../../common/commonInterfaces.ts';
@@ -18,6 +18,7 @@ const Grid = <T extends IBaseModel>({
   repository,
   updateStore = true,
 }: Props<T>): ReactElement => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const { setFormElement, formElement } = useList<T>({
     moduleName,
     repository,
@@ -27,12 +28,14 @@ const Grid = <T extends IBaseModel>({
   return (
     <div>
       <h2>Users</h2>
+      <input ref={inputRef} key="search" type="text" id="search" autoComplete="off" />
+      <input type="submit" value="Search" onClick={() => console.log(inputRef?.current?.value)} />
       <table>
-        {repository.list?.length > 0 && (
+        {repository.list?.data?.length > 0 && (
           <>
             <GridHeader key={'header'} repository={repository} />
             <tbody>
-              {repository.list?.map((element) => (
+              {repository.list?.data?.map((element) => (
                 <GridRow
                   key={element.id}
                   repository={repository}

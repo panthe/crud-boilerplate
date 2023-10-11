@@ -7,6 +7,11 @@ export interface IBaseModel {
   updated?: Date;
 }
 
+export interface IListResponse<T extends IBaseModel> {
+  data: T[];
+  totalCount: number;
+}
+
 export interface IKeyValue {
   id: CrudID;
   description?: string;
@@ -14,11 +19,11 @@ export interface IKeyValue {
 
 export interface IBaseRepository<T extends IBaseModel> {
   element: T | undefined;
-  list: T[];
+  list: IListResponse<T>;
   gridColumnOptions: GridColumnOption<T>[];
 
   get(id: CrudID): Promise<ApiResponse<T>>;
-  getMany(): Promise<ApiResponse<T[]>>;
+  getMany(): Promise<ApiResponse<IListResponse<T>>>;
   create(item: T): Promise<ApiResponse<T>>;
   update(id: CrudID, item: T): Promise<ApiResponse<T>>;
   delete(id: CrudID): Promise<ApiResponse<T>>;

@@ -1,4 +1,10 @@
-import { IBaseModel, IBaseRepository, IQueryString, GridColumnOption } from './commonInterfaces.ts';
+import {
+  IBaseModel,
+  IBaseRepository,
+  IQueryString,
+  GridColumnOption,
+  IListResponse,
+} from './commonInterfaces.ts';
 import { AxiosResponse } from 'axios';
 import { HttpClient } from './apiClient.ts';
 import { MODULE } from './commonTypes.ts';
@@ -28,13 +34,13 @@ export abstract class BaseRepository<T extends IBaseModel>
 {
   private _moduleName: MODULE;
   private _element: T | undefined;
-  private _list: T[];
+  private _list: IListResponse<T>;
   private _gridColumnOptions: GridColumnOption<T>[];
 
   constructor(moduleName: MODULE) {
     super();
     this._moduleName = moduleName;
-    this._list = [];
+    this._list = { data: [], totalCount: 0 };
     this._gridColumnOptions = [];
   }
 
@@ -50,11 +56,11 @@ export abstract class BaseRepository<T extends IBaseModel>
     this._gridColumnOptions = columns;
   }
 
-  get list(): T[] {
+  get list(): IListResponse<T> {
     return this._list;
   }
 
-  set list(data: T[]) {
+  set list(data: IListResponse<T>) {
     this._list = data;
   }
 
@@ -72,11 +78,17 @@ export abstract class BaseRepository<T extends IBaseModel>
     return result as ApiResponse<T>;
   }
 
-  public async getMany(params?: IQueryString): Promise<ApiResponse<T[]>> {
+  public async getMany(params?: IQueryString): Promise<ApiResponse<IListResponse<T>>> {
     const query = queryString(params) ?? '';
     const instance = this.createInstance();
     const result = await instance.get(`/${this._moduleName.toLowerCase()}${query}`).then(transform);
-    return result as ApiResponse<T[]>;
+    console.log({ result });
+    const resultData: T[] = (result.data as unknown as T[]) ?? [];
+    return {
+      data: { data: resultData, totalCount: resultData.length },
+      succeeded: result.succeeded,
+      errors: result.errors,
+    };
   }
 
   public async create(item: T): Promise<ApiResponse<T>> {

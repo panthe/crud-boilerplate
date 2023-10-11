@@ -2,9 +2,10 @@ import { useAppDispatch } from '../store';
 import { useState } from 'react';
 import { ApiResponse, BaseRepository } from './commonClasses.ts';
 import { AxiosError } from 'axios';
-import { ACT_SET, MODULE, TYPE_ELEMENT } from './commonConstants.ts';
+import { ACT_SET, TYPE_ELEMENT } from './commonConstants.ts';
 import { useForm, UseFormReturn } from 'react-hook-form';
-import { IBaseModel, CrudID } from './commonInterfaces.ts';
+import { IBaseModel } from './commonInterfaces.ts';
+import { MODULE, CrudID } from './commonTypes.ts';
 
 interface Props<T extends IBaseModel> {
   moduleName: MODULE;

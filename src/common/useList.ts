@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { ApiResponse, BaseRepository } from './commonClasses.ts';
 import { AxiosError } from 'axios';
 import { ACT_SET, TYPE_LIST } from './commonConstants.ts';
-import { IBaseModel } from './commonInterfaces.ts';
+import { IBaseModel, IListResponse } from './commonInterfaces.ts';
 import { MODULE } from './commonTypes.ts';
 
 interface Props<T extends IBaseModel> {
@@ -12,10 +12,10 @@ interface Props<T extends IBaseModel> {
   updateStore?: boolean;
 }
 
-interface Return<T> {
+interface Return<T extends IBaseModel> {
   fetchDataList: () => void;
   setFormElement: React.Dispatch<React.SetStateAction<T | undefined>>;
-  dataList?: T[];
+  dataList?: IListResponse<T>;
   formElement?: T;
 }
 
@@ -26,18 +26,19 @@ export const useList = <T extends IBaseModel>({
 }: Props<T>): Return<T> => {
   const dispatch = useAppDispatch();
   const [formElement, setFormElement] = useState<T | undefined>(repository.element);
-  const [dataList, setDataList] = useState<T[]>(repository.list);
+  const [dataList, setDataList] = useState<IListResponse<T>>(repository.list);
 
   const fetchDataList = () => {
     repository
       .getMany()
-      .then((response: ApiResponse<T[]>) => {
+      .then((response: ApiResponse<IListResponse<T>>) => {
         response?.data && setData(response?.data);
       })
       .catch((err: AxiosError) => console.log(err.code));
   };
 
-  const setData = async (data: T[]) => {
+  const setData = async (data: IListResponse<T>) => {
+    console.log({ data });
     updateStore &&
       (await dispatch({ type: `${moduleName}/${TYPE_LIST}/${ACT_SET}`, payload: data }));
     repository.list = data;

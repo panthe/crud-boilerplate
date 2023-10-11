@@ -41,20 +41,6 @@ export const queryString = (params: IQueryString = {}): string => {
   return qs && `?${qs}`;
 };
 
-export const findNestedProp = (
-  obj: JsonKeyValue,
-  key: string,
-  defaultValue?: string | number | boolean | null
-): string | number | boolean | null | JsonKeyValue => {
-  if (typeof defaultValue === 'undefined') defaultValue = null;
-  const propSplit = key.split('.');
-  for (let i = 0; i < propSplit.length; i++) {
-    if (typeof obj[propSplit[i]] === 'undefined') return defaultValue;
-    obj = obj[propSplit[i]];
-  }
-  return obj;
-};
-
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export const getNestedUnknownFieldByPath = (object: JsonKeyValue, path: string): any =>
   path.split('.').reduce(
