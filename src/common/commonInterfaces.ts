@@ -1,5 +1,11 @@
 import { ApiResponse } from './commonClasses.ts';
-import { AlignType, CrudID, GridColumnsFormattingType, Paths } from './commonTypes.ts';
+import {
+  AlignType,
+  CrudID,
+  FormFieldFormattingType,
+  GridFieldFormattingType,
+  Paths,
+} from './commonTypes.ts';
 
 export interface IKeyValue {
   id: CrudID;
@@ -25,7 +31,7 @@ export interface GridFieldOption<T extends IBaseModel> {
   align: AlignType;
   width: string;
   sortable: boolean;
-  formatType: GridColumnsFormattingType;
+  formatType: GridFieldFormattingType;
 }
 
 export interface FormFieldOption<T extends IBaseModel> {
@@ -33,10 +39,8 @@ export interface FormFieldOption<T extends IBaseModel> {
   position: number;
   linkedField: Paths<T>;
   type: string;
-  align: AlignType;
   width: string;
-  sortable: boolean;
-  formatType: GridColumnsFormattingType;
+  formatType: FormFieldFormattingType;
 }
 
 export interface IBaseRepository<T extends IBaseModel> {

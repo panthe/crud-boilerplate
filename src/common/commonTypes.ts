@@ -14,10 +14,12 @@ export type Paths<T> = T extends object
   ? { [K in keyof T]-?: K extends string ? `${K}` | Join<K, Paths<T[K]>> : never }[keyof T]
   : never;
 
-export type GridColumnsFormattingType =
+export type GridFieldFormattingType =
   | undefined
   | 'string'
   | 'number'
   | 'currency'
   | 'percentage'
   | 'date';
+
+export type FormFieldFormattingType = 'string' | 'number' | 'currency' | 'percentage' | 'date';

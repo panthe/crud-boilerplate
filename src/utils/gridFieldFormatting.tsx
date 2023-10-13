@@ -1,14 +1,14 @@
-import { GridColumnsFormattingType, JsonKeyValue, Paths } from '../common/commonTypes.ts';
+import { GridFieldFormattingType, JsonKeyValue, Paths } from '../common/commonTypes.ts';
 import { ReactElement } from 'react';
 import dayjs from 'dayjs';
 import { IBaseModel } from '../common/commonInterfaces.ts';
 import { getNestedUnknownFieldByPath } from '../common/commonFunctions.ts';
 import { DATE_FORMAT } from '../common/commonConstants.ts';
 
-export const gridColumnFormatting = <T extends IBaseModel>(
+export const gridFieldFormatting = <T extends IBaseModel>(
   element: T,
   linkedField: Paths<T>,
-  formattingType: GridColumnsFormattingType
+  formattingType: GridFieldFormattingType
 ): ReactElement | string => {
   const value = getNestedUnknownFieldByPath(element as JsonKeyValue, linkedField);
 
