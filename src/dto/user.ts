@@ -28,7 +28,7 @@ interface IGeo {
 class UserRepository extends BaseRepository<IUser> {
   constructor(moduleName: MODULE) {
     super(moduleName);
-    this.gridColumnOptions = [
+    this.gridFieldsOptions = [
       {
         visible: true,
         position: 0,

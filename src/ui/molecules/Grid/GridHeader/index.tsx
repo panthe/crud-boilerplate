@@ -10,7 +10,7 @@ const GridHeader = <T extends IBaseModel>({ repository }: Props<T>): ReactElemen
   return (
     <thead>
       <tr>
-        {repository.gridColumnOptions
+        {repository.gridFieldsOptions
           .filter((col) => col.visible)
           .sort((col1, col2) => col1.position - col2.position)
           .map((col) => {

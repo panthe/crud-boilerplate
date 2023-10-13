@@ -16,7 +16,7 @@ const GridRow = <T extends IBaseModel>({
 }: Props<T>): ReactElement => {
   return (
     <tr onClick={() => setFormElement(element)}>
-      {repository.gridColumnOptions
+      {repository.gridFieldsOptions
         .filter((col) => col.visible)
         .sort((col1, col2) => col1.position - col2.position)
         .map((col, index) => (

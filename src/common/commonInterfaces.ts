@@ -17,7 +17,18 @@ export interface IListResponse<T extends IBaseModel> {
   totalCount: number;
 }
 
-export interface GridColumnOption<T extends IBaseModel> {
+export interface GridFieldOption<T extends IBaseModel> {
+  visible: boolean;
+  position: number;
+  linkedField: Paths<T>;
+  type: string;
+  align: AlignType;
+  width: string;
+  sortable: boolean;
+  formatType: GridColumnsFormattingType;
+}
+
+export interface FormFieldOption<T extends IBaseModel> {
   visible: boolean;
   position: number;
   linkedField: Paths<T>;
@@ -31,7 +42,7 @@ export interface GridColumnOption<T extends IBaseModel> {
 export interface IBaseRepository<T extends IBaseModel> {
   element: T | undefined;
   list: IListResponse<T>;
-  gridColumnOptions: GridColumnOption<T>[];
+  gridFieldsOptions: GridFieldOption<T>[];
 
   get(id: CrudID): Promise<ApiResponse<T>>;
   getMany(): Promise<ApiResponse<IListResponse<T>>>;

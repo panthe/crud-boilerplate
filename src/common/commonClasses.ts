@@ -2,7 +2,7 @@ import {
   IBaseModel,
   IBaseRepository,
   IQueryString,
-  GridColumnOption,
+  GridFieldOption,
   IListResponse,
 } from './commonInterfaces.ts';
 import { AxiosResponse } from 'axios';
@@ -35,7 +35,7 @@ export abstract class BaseRepository<T extends IBaseModel>
   private _moduleName: MODULE;
   private _element: T | undefined;
   private _list: IListResponse<T>;
-  private _gridColumnOptions: GridColumnOption<T>[];
+  private _gridColumnOptions: GridFieldOption<T>[];
 
   constructor(moduleName: MODULE) {
     super();
@@ -48,11 +48,11 @@ export abstract class BaseRepository<T extends IBaseModel>
     return this._moduleName;
   }
 
-  get gridColumnOptions(): GridColumnOption<T>[] {
+  get gridFieldsOptions(): GridFieldOption<T>[] {
     return this._gridColumnOptions;
   }
 
-  set gridColumnOptions(columns: GridColumnOption<T>[]) {
+  set gridFieldsOptions(columns: GridFieldOption<T>[]) {
     this._gridColumnOptions = columns;
   }
 
