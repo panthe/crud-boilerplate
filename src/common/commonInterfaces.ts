@@ -1,6 +1,11 @@
 import { ApiResponse } from './commonClasses.ts';
 import { AlignType, CrudID, GridColumnsFormattingType, Paths } from './commonTypes.ts';
 
+export interface IKeyValue {
+  id: CrudID;
+  description?: string;
+}
+
 export interface IBaseModel {
   id?: CrudID;
   created?: Date;
@@ -12,9 +17,15 @@ export interface IListResponse<T extends IBaseModel> {
   totalCount: number;
 }
 
-export interface IKeyValue {
-  id: CrudID;
-  description?: string;
+export interface GridColumnOption<T extends IBaseModel> {
+  visible: boolean;
+  position: number;
+  linkedField: Paths<T>;
+  type: string;
+  align: AlignType;
+  width: string;
+  sortable: boolean;
+  formatType: GridColumnsFormattingType;
 }
 
 export interface IBaseRepository<T extends IBaseModel> {
@@ -37,15 +48,4 @@ export interface IQueryString {
 export interface IListFetchParams {
   skip: number;
   limit: number;
-}
-
-export interface GridColumnOption<T extends IBaseModel> {
-  visible: boolean;
-  position: number;
-  linkedField: Paths<T>;
-  type: string;
-  align: AlignType;
-  width: string;
-  sortable: boolean;
-  formatType: GridColumnsFormattingType;
 }
