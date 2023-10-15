@@ -14,7 +14,14 @@ const CrudBody = <T extends IBaseModel>({ formElement }: Props<T>): ReactElement
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       {Object.keys(formElement).map((k, index) => (
-        <input key={`${k}${index}`} {...register(k)} />
+        <div style={{ display: 'flex' }}>
+          <div style={{ width: '200px' }}>
+            <b>{k}</b>
+          </div>
+          <div style={{ width: '200px' }}>
+            <input key={`${k}${index}`} {...register(k)} style={{ width: '400px' }} />
+          </div>
+        </div>
       ))}
     </div>
   );

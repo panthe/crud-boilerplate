@@ -1,6 +1,7 @@
 import { ApiResponse } from './commonClasses.ts';
 import {
   AlignType,
+  AxiosMethods,
   CrudID,
   FormFieldFormattingType,
   GridFieldFormattingType,
@@ -68,4 +69,32 @@ export interface IQueryString {
 export interface IListFetchParams {
   skip: number;
   limit: number;
+}
+
+export interface FetchWrapper {
+  url: string;
+  method: AxiosMethods;
+  body?: object;
+}
+
+export interface FetchResponse<T> {
+  status: number;
+  statusText: string;
+  ok: boolean;
+  type: string;
+  url: string;
+  data?: T;
+  errors?: Array<{ message: string }>;
+}
+
+export interface ParamsUrl {
+  url: string;
+  params?: {
+    [key: string]: string | string[] | number[] | number | boolean | null | undefined | never;
+  };
+}
+
+export interface MultipartUrl {
+  url: string;
+  formData: FormData;
 }

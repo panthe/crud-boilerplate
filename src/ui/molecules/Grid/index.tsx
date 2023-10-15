@@ -27,7 +27,7 @@ const Grid = <T extends IBaseModel>({
 
   return (
     <div>
-      <h2>Users</h2>
+      <h2>{moduleName.toUpperCase()}</h2>
       <input ref={inputRef} key="search" type="text" id="search" autoComplete="off" />
       <input type="submit" value="Search" onClick={() => console.log(inputRef?.current?.value)} />
       <table>

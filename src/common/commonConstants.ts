@@ -8,19 +8,21 @@ export const TYPE_ELEMENT = 'ELEMENT';
 
 // MODULE
 export const MN_USERS = 'USERS';
+export const MN_STAFF = 'STAFF';
 
 // ACTIONS
 export const ACT_SET = 'SET';
 
 // URL
-//export const BASE_URL = 'http://localhost:9000';
-export const BASE_URL = 'https://jsonplaceholder.typicode.com/';
+export const BASE_URL = 'http://localhost:9000/api/v1';
+//export const BASE_URL = 'https://jsonplaceholder.typicode.com/';
 export const API = '/api';
 export const V1 = '/v1';
 export const ME = '/me';
 export const AUTH = '/auth';
 export const LOGIN = '/login';
 export const HOME = '/home';
+export const STAFF = '/staff';
 export const USERS_URL = '/users';
 
 // DATE
@@ -38,3 +40,10 @@ export const DATE_FORMAT = {
   MMMM_YYYY: 'MMMM YYYY',
   HH_MM: 'HH:mm',
 };
+
+// API METHODS
+export const GET = 'GET';
+export const POST = 'POST';
+export const PATCH = 'PATCH';
+export const DELETE = 'DELETE';
+export const MULTIPART = 'MULTIPART';

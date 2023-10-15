@@ -1,9 +1,9 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App.tsx';
 import './index.css';
 import { store } from './store';
 import { Provider } from 'react-redux';
+import AppRouter from './routers';
 
 const container = document.getElementById('root');
 if (container) {
@@ -11,7 +11,7 @@ if (container) {
   root.render(
     <Provider store={store}>
       <React.StrictMode>
-        <App />
+        <AppRouter />
       </React.StrictMode>
     </Provider>
   );

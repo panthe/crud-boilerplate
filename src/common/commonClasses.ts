@@ -82,13 +82,7 @@ export abstract class BaseRepository<T extends IBaseModel>
     const query = queryString(params) ?? '';
     const instance = this.createInstance();
     const result = await instance.get(`/${this._moduleName.toLowerCase()}${query}`).then(transform);
-    console.log({ result });
-    const resultData: T[] = (result.data as unknown as T[]) ?? [];
-    return {
-      data: { data: resultData, totalCount: resultData.length },
-      succeeded: result.succeeded,
-      errors: result.errors,
-    };
+    return result as ApiResponse<IListResponse<T>>;
   }
 
   public async create(item: T): Promise<ApiResponse<T>> {

@@ -1,10 +1,12 @@
 import { ReactElement } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { ILogin } from '../../../common/commonInterfaces.ts';
-import { BASE_URL, API, AUTH, V1, LOGIN } from '../../../common/commonConstants.ts';
+import { AUTH, BASE_URL, LOGIN, STAFF } from '../../../common/commonConstants.ts';
 import { addTokenCookies } from '../../../utils/helpers/authCookiesWeb.ts';
+import { useNavigate } from 'react-router-dom';
 
 const Login = (): ReactElement => {
+  const navigate = useNavigate();
   const methods = useForm({
     defaultValues: {
       email: '',
@@ -25,7 +27,7 @@ const Login = (): ReactElement => {
     password: string;
   }) => {
     try {
-      const response = await fetch(`${BASE_URL}${API}${V1}${AUTH}${LOGIN}`, {
+      const response = await fetch(`${BASE_URL}${AUTH}${LOGIN}`, {
         method: 'POST',
         body: JSON.stringify({
           email,
@@ -37,11 +39,13 @@ const Login = (): ReactElement => {
       if (response.status === 200 || response.status === 201) {
         const data = await response.json();
         if (data?.user?.stsTokenManager.accessToken) {
+          localStorage.setItem('accessToken', data?.user?.stsTokenManager.accessToken);
+          localStorage.setItem('refreshToken', data?.user?.stsTokenManager.refreshToken);
           await addTokenCookies({
             accessToken: data?.user?.stsTokenManager.accessToken,
             refreshToken: data?.user?.stsTokenManager.refreshToken,
           });
-          //return navigate(`/${CALENDAR}`);
+          return navigate(STAFF);
         }
       }
       return null;

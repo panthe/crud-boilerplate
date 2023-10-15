@@ -1,7 +1,16 @@
-import { ACT_SET, MN_USERS } from './commonConstants.ts';
+import {
+  ACT_SET,
+  MN_USERS,
+  GET,
+  POST,
+  PATCH,
+  DELETE,
+  MULTIPART,
+  MN_STAFF,
+} from './commonConstants.ts';
 
 export type CrudID = number | string | undefined;
-export type MODULE = typeof MN_USERS;
+export type MODULE = typeof MN_USERS | typeof MN_STAFF;
 export type ACTIONS = typeof ACT_SET;
 
 export type AlignType = 'center' | 'left' | 'right' | 'justify' | 'char' | undefined;
@@ -23,3 +32,10 @@ export type GridFieldFormattingType =
   | 'date';
 
 export type FormFieldFormattingType = 'string' | 'number' | 'currency' | 'percentage' | 'date';
+
+export type AxiosMethods =
+  | typeof GET
+  | typeof POST
+  | typeof PATCH
+  | typeof DELETE
+  | typeof MULTIPART;

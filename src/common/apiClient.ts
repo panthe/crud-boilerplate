@@ -11,16 +11,17 @@ export abstract class HttpClient {
         'Content-Type': 'application/json',
       },
     });
-    this.initializeResponseInterceptor();
+    this.initializeResponseInterceptor().then();
     return this.instance;
   }
 
-  private initializeResponseInterceptor = () => {
+  private initializeResponseInterceptor = async () => {
     this.instance?.interceptors.response.use(this.handleResponse, this.handleError);
-    const token = localStorage.getItem('jwtToken');
+    const accessToken = localStorage.getItem('accessToken');
+    console.log({ accessToken });
     this.instance?.interceptors.request.use((config: any) => {
       config.headers = {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${accessToken}`,
       };
       return config;
     });
