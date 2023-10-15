@@ -51,6 +51,7 @@ const Grid = <T extends IBaseModel, Q extends IListFetchParams>({
           </>
         )}
       </table>
+      {`Record totali ${repository.list.totalCount}`}
       {formElement && (
         <CrudForm<T>
           moduleName={moduleName}
