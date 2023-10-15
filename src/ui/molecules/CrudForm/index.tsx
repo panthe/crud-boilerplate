@@ -45,7 +45,7 @@ const CrudForm = <T extends IBaseModel>({
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         <CrudTitle moduleName={moduleName} />
-        <CrudBody formElement={formElement} />
+        <CrudBody formElement={formElement} repository={repository} />
         <CrudButtons />
       </form>
     </FormProvider>

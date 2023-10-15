@@ -1,3 +1,7 @@
+// CONSTANTS
+export const ACCESS_TOKEN = 'accessToken';
+export const REFRESH_TOKEN = 'refreshToken';
+
 // TYPE
 export const TYPE_LIST = 'LIST';
 export const TYPE_ELEMENT = 'ELEMENT';
@@ -9,7 +13,15 @@ export const MN_USERS = 'USERS';
 export const ACT_SET = 'SET';
 
 // URL
+//export const BASE_URL = 'http://localhost:9000';
 export const BASE_URL = 'https://jsonplaceholder.typicode.com/';
+export const API = '/api';
+export const V1 = '/v1';
+export const ME = '/me';
+export const AUTH = '/auth';
+export const LOGIN = '/login';
+export const HOME = '/home';
+export const USERS_URL = '/users';
 
 // DATE
 export const DATE_FORMAT = {

@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { IBaseModel } from '../../../../common/commonInterfaces.ts';
 import { BaseRepository } from '../../../../common/commonClasses.ts';
-import { gridFieldFormatting } from '../../../../utils/gridFieldFormatting.tsx';
+import { gridFieldsFormatRules } from '../../../../utils/gridFieldsFormatRules.tsx';
 
 interface Props<T extends IBaseModel> {
   repository: BaseRepository<T>;
@@ -21,7 +21,7 @@ const GridRow = <T extends IBaseModel>({
         .sort((col1, col2) => col1.position - col2.position)
         .map((col, index) => (
           <td key={`${String(col.linkedField)}${index}`} align={col.align} width={col.width}>
-            {gridFieldFormatting(element, col.linkedField, col.formatType)}
+            {gridFieldsFormatRules(element, col.linkedField, col.formatType)}
           </td>
         ))}
     </tr>

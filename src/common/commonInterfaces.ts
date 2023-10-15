@@ -7,6 +7,11 @@ import {
   Paths,
 } from './commonTypes.ts';
 
+export interface ILogin {
+  email: string;
+  password: string;
+}
+
 export interface IKeyValue {
   id: CrudID;
   description?: string;
