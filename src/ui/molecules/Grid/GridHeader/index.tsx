@@ -1,12 +1,14 @@
 import { ReactElement } from 'react';
-import { IBaseModel } from '../../../../common/commonInterfaces.ts';
+import { IBaseModel, IListFetchParams } from '../../../../common/commonInterfaces.ts';
 import { BaseRepository } from '../../../../common/commonClasses.ts';
 
-interface Props<T extends IBaseModel> {
-  repository: BaseRepository<T>;
+interface Props<T extends IBaseModel, Q extends IListFetchParams> {
+  repository: BaseRepository<T, Q>;
 }
 
-const GridHeader = <T extends IBaseModel>({ repository }: Props<T>): ReactElement => {
+const GridHeader = <T extends IBaseModel, Q extends IListFetchParams>({
+  repository,
+}: Props<T, Q>): ReactElement => {
   return (
     <thead>
       <tr>

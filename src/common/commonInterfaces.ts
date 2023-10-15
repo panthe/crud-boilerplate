@@ -20,8 +20,8 @@ export interface IKeyValue {
 
 export interface IBaseModel {
   id?: CrudID;
-  created?: Date;
-  updated?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface IListResponse<T extends IBaseModel> {
@@ -43,6 +43,7 @@ export interface GridFieldOption<T extends IBaseModel> {
 export interface FormFieldOption<T extends IBaseModel> {
   visible: boolean;
   position: number;
+  readonly: boolean;
   linkedField: Paths<T>;
   type: string;
   width: string;
@@ -53,6 +54,7 @@ export interface IBaseRepository<T extends IBaseModel, Q extends IListFetchParam
   element: T | undefined;
   list: IListResponse<T>;
   gridFieldsOptions: GridFieldOption<T>[];
+  formFieldsOptions: FormFieldOption<T>[];
 
   get(id: CrudID): Promise<ApiResponse<T>>;
   getMany(params?: Q): Promise<ApiResponse<IListResponse<T>>>;

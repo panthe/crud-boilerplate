@@ -2,25 +2,25 @@ import { ReactElement, useEffect } from 'react';
 import { FormProvider, SubmitHandler } from 'react-hook-form';
 import { BaseRepository } from '../../../common/commonClasses.ts';
 import { useCrud } from '../../../common/useCrud.ts';
-import { IBaseModel } from '../../../common/commonInterfaces.ts';
+import { IBaseModel, IListFetchParams } from '../../../common/commonInterfaces.ts';
 import CrudTitle from './CrudTitle';
 import CrudButtons from './CrudButtons';
 import CrudBody from './CrudBody';
 import { MODULE } from '../../../common/commonTypes.ts';
 
-interface Props<T extends IBaseModel> {
+interface Props<T extends IBaseModel, Q extends IListFetchParams> {
   moduleName: MODULE;
-  repository: BaseRepository<T>;
+  repository: BaseRepository<T, Q>;
   formElement: T;
   updateStore?: boolean;
 }
 
-const CrudForm = <T extends IBaseModel>({
+const CrudForm = <T extends IBaseModel, Q extends IListFetchParams>({
   moduleName,
   repository,
   formElement,
   updateStore = true,
-}: Props<T>): ReactElement => {
+}: Props<T, Q>): ReactElement => {
   const { methods, fetchDataElement } = useCrud<T>({
     moduleName,
     repository,
@@ -45,7 +45,7 @@ const CrudForm = <T extends IBaseModel>({
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         <CrudTitle moduleName={moduleName} />
-        <CrudBody formElement={formElement} repository={repository} />
+        <CrudBody repository={repository} />
         <CrudButtons />
       </form>
     </FormProvider>

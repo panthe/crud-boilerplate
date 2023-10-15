@@ -1,19 +1,19 @@
 import { ReactElement } from 'react';
-import { IBaseModel } from '../../../../common/commonInterfaces.ts';
+import { IBaseModel, IListFetchParams } from '../../../../common/commonInterfaces.ts';
 import { BaseRepository } from '../../../../common/commonClasses.ts';
 import { gridFieldsFormatRules } from '../../../../utils/gridFieldsFormatRules.tsx';
 
-interface Props<T extends IBaseModel> {
-  repository: BaseRepository<T>;
+interface Props<T extends IBaseModel, Q extends IListFetchParams> {
+  repository: BaseRepository<T, Q>;
   element: T;
   setFormElement: React.Dispatch<React.SetStateAction<T | undefined>>;
 }
 
-const GridRow = <T extends IBaseModel>({
+const GridRow = <T extends IBaseModel, Q extends IListFetchParams>({
   repository,
   element,
   setFormElement,
-}: Props<T>): ReactElement => {
+}: Props<T, Q>): ReactElement => {
   return (
     <tr onClick={() => setFormElement(element)}>
       {repository.gridFieldsOptions

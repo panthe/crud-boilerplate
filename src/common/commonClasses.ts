@@ -1,4 +1,5 @@
 import {
+  FormFieldOption,
   GridFieldOption,
   IBaseModel,
   IBaseRepository,
@@ -35,16 +36,26 @@ export abstract class BaseRepository<T extends IBaseModel, Q extends IListFetchP
   private _element: T | undefined;
   private _list: IListResponse<T>;
   private _gridColumnOptions: GridFieldOption<T>[];
+  private _formFieldsOptions: FormFieldOption<T>[];
 
   constructor(moduleName: MODULE) {
     super();
     this._moduleName = moduleName;
     this._list = { data: [], totalCount: 0 };
     this._gridColumnOptions = [];
+    this._formFieldsOptions = [];
   }
 
   get moduleName(): MODULE {
     return this._moduleName;
+  }
+
+  get formFieldsOptions(): FormFieldOption<T>[] {
+    return this._formFieldsOptions;
+  }
+
+  set formFieldsOptions(columns: FormFieldOption<T>[]) {
+    this._formFieldsOptions = columns;
   }
 
   get gridFieldsOptions(): GridFieldOption<T>[] {
@@ -92,8 +103,12 @@ export abstract class BaseRepository<T extends IBaseModel, Q extends IListFetchP
 
   public async update(id: CrudID, item: T): Promise<ApiResponse<T>> {
     const instance = this.createInstance();
+    const itemToUpdate = { ...item };
+    delete itemToUpdate['id'];
+    delete itemToUpdate['createdAt'];
+    delete itemToUpdate['updatedAt'];
     const result = await instance
-      .put(`/${this._moduleName.toLowerCase()}/${id}`, item)
+      .patch(`/${this._moduleName.toLowerCase()}/${id}`, itemToUpdate)
       .then(transform);
     return result as ApiResponse<T>;
   }

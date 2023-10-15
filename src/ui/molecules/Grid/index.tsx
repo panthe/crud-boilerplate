@@ -83,7 +83,7 @@ const Grid = <T extends IBaseModel, Q extends IListFetchParams>({
         />
       </div>
       {formElement && (
-        <CrudForm<T>
+        <CrudForm<T, Q>
           moduleName={moduleName}
           repository={repository}
           updateStore={updateStore}

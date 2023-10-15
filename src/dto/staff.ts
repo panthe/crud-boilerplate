@@ -3,6 +3,7 @@ import { IBaseModel, IListFetchParams } from '../common/commonInterfaces.ts';
 import { MODULE } from '../common/commonTypes.ts';
 
 export interface IStaff extends IBaseModel {
+  tenantId?: string;
   name?: string;
   description?: string;
   address?: string;
@@ -29,7 +30,7 @@ class StaffRepository extends BaseRepository<IStaff, IListFetchParams> {
         align: 'left',
         width: 'max-content',
         sortable: true,
-        formatType: undefined,
+        formatType: 'number',
       },
       {
         visible: true,
@@ -39,7 +40,7 @@ class StaffRepository extends BaseRepository<IStaff, IListFetchParams> {
         align: 'left',
         width: 'max-content',
         sortable: true,
-        formatType: undefined,
+        formatType: 'string',
       },
       {
         visible: true,
@@ -49,7 +50,37 @@ class StaffRepository extends BaseRepository<IStaff, IListFetchParams> {
         align: 'left',
         width: 'max-content',
         sortable: true,
-        formatType: undefined,
+        formatType: 'string',
+      },
+    ];
+
+    this.formFieldsOptions = [
+      {
+        visible: true,
+        position: 0,
+        readonly: true,
+        linkedField: 'id',
+        type: 'number',
+        width: '150px',
+        formatType: 'number',
+      },
+      {
+        visible: false,
+        position: 0,
+        readonly: true,
+        linkedField: 'tenantId',
+        type: 'string',
+        width: '150px',
+        formatType: 'string',
+      },
+      {
+        visible: true,
+        position: 1,
+        readonly: false,
+        linkedField: 'name',
+        type: 'string',
+        width: '150px',
+        formatType: 'string',
       },
     ];
   }
