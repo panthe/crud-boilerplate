@@ -7,6 +7,7 @@ import {
   GridFieldFormattingType,
   Paths,
 } from './commonTypes.ts';
+import { ZodObject } from 'zod';
 
 export interface ILogin {
   email: string;
@@ -55,6 +56,8 @@ export interface IBaseRepository<T extends IBaseModel, Q extends IListFetchParam
   list: IListResponse<T>;
   gridFieldsOptions: GridFieldOption<T>[];
   formFieldsOptions: FormFieldOption<T>[];
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
+  formValidationSchema: ZodObject<any>;
 
   get(id: CrudID): Promise<ApiResponse<T>>;
   getMany(params?: Q): Promise<ApiResponse<IListResponse<T>>>;

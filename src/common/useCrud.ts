@@ -4,6 +4,7 @@ import { ApiResponse, BaseRepository } from './commonClasses.ts';
 import { AxiosError } from 'axios';
 import { ACT_SET, TYPE_ELEMENT } from './commonConstants.ts';
 import { useForm, UseFormReturn } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { IBaseModel } from './commonInterfaces.ts';
 import { MODULE, CrudID } from './commonTypes.ts';
 
@@ -33,6 +34,7 @@ export const useCrud = <T extends IBaseModel>({
     mode: 'onSubmit',
     values: dataElement,
     defaultValues: dataElement ? JSON.parse(JSON.stringify(dataElement)) : undefined,
+    resolver: zodResolver(repository.formValidationSchema),
   });
 
   const fetchDataElement = () => {

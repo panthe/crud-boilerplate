@@ -41,6 +41,10 @@ const CrudForm = <T extends IBaseModel, Q extends IListFetchParams>({
     console.log({ responseMany });
   };
 
+  useEffect(() => {
+    console.log(methods.formState.errors);
+  }, [methods.formState.errors]);
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>

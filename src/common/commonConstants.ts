@@ -47,3 +47,6 @@ export const POST = 'POST';
 export const PATCH = 'PATCH';
 export const DELETE = 'DELETE';
 export const MULTIPART = 'MULTIPART';
+
+// REGEX
+export const PHONE_REGEX = /^\+(?:[0-9] ?){6,14}[0-9]$/;

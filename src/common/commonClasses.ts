@@ -10,6 +10,7 @@ import { AxiosResponse } from 'axios';
 import { HttpClient } from './apiClient.ts';
 import { CrudID, MODULE } from './commonTypes.ts';
 import { queryString } from './commonFunctions.ts';
+import * as z from 'zod';
 
 export class ApiResponse<T> {
   data?: T;
@@ -37,6 +38,8 @@ export abstract class BaseRepository<T extends IBaseModel, Q extends IListFetchP
   private _list: IListResponse<T>;
   private _gridColumnOptions: GridFieldOption<T>[];
   private _formFieldsOptions: FormFieldOption<T>[];
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
+  private _formValidationSchema: z.ZodObject<any>;
 
   constructor(moduleName: MODULE) {
     super();
@@ -44,6 +47,7 @@ export abstract class BaseRepository<T extends IBaseModel, Q extends IListFetchP
     this._list = { data: [], totalCount: 0 };
     this._gridColumnOptions = [];
     this._formFieldsOptions = [];
+    this._formValidationSchema = z.object({});
   }
 
   get moduleName(): MODULE {
@@ -56,6 +60,14 @@ export abstract class BaseRepository<T extends IBaseModel, Q extends IListFetchP
 
   set formFieldsOptions(columns: FormFieldOption<T>[]) {
     this._formFieldsOptions = columns;
+  }
+
+  get formValidationSchema(): z.ZodObject<any> {
+    return this._formValidationSchema;
+  }
+
+  set formValidationSchema(validationSchema: z.ZodObject<any>) {
+    this._formValidationSchema = validationSchema;
   }
 
   get gridFieldsOptions(): GridFieldOption<T>[] {
