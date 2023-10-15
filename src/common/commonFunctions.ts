@@ -1,7 +1,7 @@
-import { IKeyValue, IQueryString } from './commonInterfaces.ts';
+import { IKeyValue, IListFetchParams } from './commonInterfaces.ts';
 import { JsonKeyValue } from './commonTypes.ts';
 
-export const queryString = (params: IQueryString = {}): string => {
+export const queryString = <Q extends IListFetchParams>(params: Q): string => {
   // get array of key value pairs ([[k1, v1], [k2, v2]])
   const qs = Object.entries(params)
     // filter pairs with undefined value and empty arrays

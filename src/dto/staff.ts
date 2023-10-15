@@ -1,5 +1,5 @@
 import { BaseRepository } from '../common/commonClasses.ts';
-import { IBaseModel } from '../common/commonInterfaces.ts';
+import { IBaseModel, IListFetchParams } from '../common/commonInterfaces.ts';
 import { MODULE } from '../common/commonTypes.ts';
 
 export interface IStaff extends IBaseModel {
@@ -17,7 +17,7 @@ export interface IStaff extends IBaseModel {
   reservedNote?: string;
 }
 
-class StaffRepository extends BaseRepository<IStaff> {
+class StaffRepository extends BaseRepository<IStaff, IListFetchParams> {
   constructor(moduleName: MODULE) {
     super(moduleName);
     this.gridFieldsOptions = [

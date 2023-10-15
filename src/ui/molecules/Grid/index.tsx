@@ -2,24 +2,24 @@ import { BaseRepository } from '../../../common/commonClasses.ts';
 import { ReactElement, useRef } from 'react';
 import { useList } from '../../../common/useList.ts';
 import GridRow from './GridRow';
-import { IBaseModel } from '../../../common/commonInterfaces.ts';
+import { IBaseModel, IListFetchParams } from '../../../common/commonInterfaces.ts';
 import GridHeader from './GridHeader';
 import CrudForm from '../CrudForm';
 import { MODULE } from '../../../common/commonTypes.ts';
 
-interface Props<T extends IBaseModel> {
+interface Props<T extends IBaseModel, Q extends IListFetchParams> {
   moduleName: MODULE;
-  repository: BaseRepository<T>;
+  repository: BaseRepository<T, Q>;
   updateStore?: boolean;
 }
 
-const Grid = <T extends IBaseModel>({
+const Grid = <T extends IBaseModel, Q extends IListFetchParams>({
   moduleName,
   repository,
   updateStore = true,
-}: Props<T>): ReactElement => {
+}: Props<T, Q>): ReactElement => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { setFormElement, formElement } = useList<T>({
+  const { setFormElement, formElement, setParams } = useList<T, Q>({
     moduleName,
     repository,
     updateStore,
@@ -29,7 +29,11 @@ const Grid = <T extends IBaseModel>({
     <div>
       <h2>{moduleName.toUpperCase()}</h2>
       <input ref={inputRef} key="search" type="text" id="search" autoComplete="off" />
-      <input type="submit" value="Search" onClick={() => console.log(inputRef?.current?.value)} />
+      <input
+        type="submit"
+        value="Search"
+        onClick={() => setParams({ search: String(inputRef?.current?.value) } as Q)}
+      />
       <table>
         {repository.list?.data?.length > 0 && (
           <>

@@ -1,15 +1,14 @@
 import {
+  GridFieldOption,
   IBaseModel,
   IBaseRepository,
-  IQueryString,
-  GridFieldOption,
+  IListFetchParams,
   IListResponse,
 } from './commonInterfaces.ts';
 import { AxiosResponse } from 'axios';
 import { HttpClient } from './apiClient.ts';
-import { MODULE } from './commonTypes.ts';
+import { CrudID, MODULE } from './commonTypes.ts';
 import { queryString } from './commonFunctions.ts';
-import { CrudID } from './commonTypes.ts';
 
 export class ApiResponse<T> {
   data?: T;
@@ -28,9 +27,9 @@ const transform = (response: AxiosResponse): Promise<ApiResponse<never>> => {
   });
 };
 
-export abstract class BaseRepository<T extends IBaseModel>
+export abstract class BaseRepository<T extends IBaseModel, Q extends IListFetchParams>
   extends HttpClient
-  implements IBaseRepository<T>
+  implements IBaseRepository<T, Q>
 {
   private _moduleName: MODULE;
   private _element: T | undefined;
@@ -78,8 +77,8 @@ export abstract class BaseRepository<T extends IBaseModel>
     return result as ApiResponse<T>;
   }
 
-  public async getMany(params?: IQueryString): Promise<ApiResponse<IListResponse<T>>> {
-    const query = queryString(params) ?? '';
+  public async getMany(params?: Q): Promise<ApiResponse<IListResponse<T>>> {
+    const query = params ? queryString<Q>(params) : '';
     const instance = this.createInstance();
     const result = await instance.get(`/${this._moduleName.toLowerCase()}${query}`).then(transform);
     return result as ApiResponse<IListResponse<T>>;

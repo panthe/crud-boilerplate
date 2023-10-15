@@ -49,13 +49,13 @@ export interface FormFieldOption<T extends IBaseModel> {
   formatType: FormFieldFormattingType;
 }
 
-export interface IBaseRepository<T extends IBaseModel> {
+export interface IBaseRepository<T extends IBaseModel, Q extends IListFetchParams> {
   element: T | undefined;
   list: IListResponse<T>;
   gridFieldsOptions: GridFieldOption<T>[];
 
   get(id: CrudID): Promise<ApiResponse<T>>;
-  getMany(): Promise<ApiResponse<IListResponse<T>>>;
+  getMany(params?: Q): Promise<ApiResponse<IListResponse<T>>>;
   create(item: T): Promise<ApiResponse<T>>;
   update(id: CrudID, item: T): Promise<ApiResponse<T>>;
   delete(id: CrudID): Promise<ApiResponse<T>>;
@@ -67,8 +67,9 @@ export interface IQueryString {
 }
 
 export interface IListFetchParams {
+  search: string;
   skip: number;
-  limit: number;
+  take: number;
 }
 
 export interface FetchWrapper {

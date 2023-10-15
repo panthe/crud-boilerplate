@@ -3,34 +3,37 @@ import { useEffect, useState } from 'react';
 import { ApiResponse, BaseRepository } from './commonClasses.ts';
 import { AxiosError } from 'axios';
 import { ACT_SET, TYPE_LIST } from './commonConstants.ts';
-import { IBaseModel, IListResponse } from './commonInterfaces.ts';
+import { IBaseModel, IListFetchParams, IListResponse } from './commonInterfaces.ts';
 import { MODULE } from './commonTypes.ts';
 
-interface Props<T extends IBaseModel> {
+interface Props<T extends IBaseModel, Q extends IListFetchParams> {
   moduleName: MODULE;
-  repository: BaseRepository<T>;
+  repository: BaseRepository<T, Q>;
   updateStore?: boolean;
 }
 
-interface Return<T extends IBaseModel> {
+interface Return<T extends IBaseModel, Q extends IListFetchParams> {
   fetchDataList: () => void;
   setFormElement: React.Dispatch<React.SetStateAction<T | undefined>>;
-  dataList?: IListResponse<T>;
+  setParams: React.Dispatch<React.SetStateAction<Q | undefined>>;
+  dataList: IListResponse<T>;
   formElement?: T;
+  params?: Q;
 }
 
-export const useList = <T extends IBaseModel>({
+export const useList = <T extends IBaseModel, Q extends IListFetchParams>({
   moduleName,
   repository,
   updateStore = true,
-}: Props<T>): Return<T> => {
+}: Props<T, Q>): Return<T, Q> => {
   const dispatch = useAppDispatch();
   const [formElement, setFormElement] = useState<T | undefined>(repository.element);
   const [dataList, setDataList] = useState<IListResponse<T>>(repository.list);
+  const [params, setParams] = useState<Q>();
 
   const fetchDataList = () => {
     repository
-      .getMany()
+      .getMany(params)
       .then((response: ApiResponse<IListResponse<T>>) => {
         response?.data && setData(response?.data);
       })
@@ -49,12 +52,14 @@ export const useList = <T extends IBaseModel>({
   useEffect(() => {
     fetchDataList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [params]);
 
   return {
     fetchDataList,
     dataList,
     setFormElement,
     formElement,
+    setParams,
+    params,
   };
 };
