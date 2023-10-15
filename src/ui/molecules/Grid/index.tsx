@@ -19,7 +19,7 @@ const Grid = <T extends IBaseModel, Q extends IListFetchParams>({
   updateStore = true,
 }: Props<T, Q>): ReactElement => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { setFormElement, formElement, setParams } = useList<T, Q>({
+  const { setFormElement, formElement, setParams, params } = useList<T, Q>({
     moduleName,
     repository,
     updateStore,
@@ -32,7 +32,7 @@ const Grid = <T extends IBaseModel, Q extends IListFetchParams>({
       <input
         type="submit"
         value="Search"
-        onClick={() => setParams({ search: String(inputRef?.current?.value) } as Q)}
+        onClick={() => setParams({ search: String(inputRef?.current?.value), ...params } as Q)}
       />
       <table>
         {repository.list?.data?.length > 0 && (
@@ -51,7 +51,37 @@ const Grid = <T extends IBaseModel, Q extends IListFetchParams>({
           </>
         )}
       </table>
-      {`Record totali ${repository.list.totalCount}`}
+      <div>
+        {`Record totali ${repository.list.totalCount}`}
+        <input
+          type="submit"
+          value="< PREV"
+          onClick={() =>
+            setParams({
+              ...params,
+              skip:
+                Number(params?.skip) >= Number(params?.take)
+                  ? Number(params?.skip) - Number(params?.take)
+                  : 0,
+            } as Q)
+          }
+          disabled={Number(params?.skip) === 0}
+        />
+        <input
+          type="submit"
+          value="NEXT >"
+          onClick={() =>
+            setParams({
+              ...params,
+              skip:
+                Number(params?.skip) + Number(params?.take) <= repository.list.totalCount
+                  ? Number(params?.skip) + Number(params?.take)
+                  : 0,
+            } as Q)
+          }
+          disabled={Number(params?.skip) + Number(params?.take) > repository.list.totalCount}
+        />
+      </div>
       {formElement && (
         <CrudForm<T>
           moduleName={moduleName}

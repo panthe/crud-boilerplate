@@ -15,7 +15,7 @@ interface Props<T extends IBaseModel, Q extends IListFetchParams> {
 interface Return<T extends IBaseModel, Q extends IListFetchParams> {
   fetchDataList: () => void;
   setFormElement: React.Dispatch<React.SetStateAction<T | undefined>>;
-  setParams: React.Dispatch<React.SetStateAction<Q | undefined>>;
+  setParams: React.Dispatch<React.SetStateAction<Q>>;
   dataList: IListResponse<T>;
   formElement?: T;
   params?: Q;
@@ -29,7 +29,9 @@ export const useList = <T extends IBaseModel, Q extends IListFetchParams>({
   const dispatch = useAppDispatch();
   const [formElement, setFormElement] = useState<T | undefined>(repository.element);
   const [dataList, setDataList] = useState<IListResponse<T>>(repository.list);
-  const [params, setParams] = useState<Q>();
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const [params, setParams] = useState<Q>({ skip: 0, take: 10, search: '' });
 
   const fetchDataList = () => {
     repository
@@ -50,7 +52,7 @@ export const useList = <T extends IBaseModel, Q extends IListFetchParams>({
   };
 
   useEffect(() => {
-    fetchDataList();
+    params && fetchDataList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params]);
 
