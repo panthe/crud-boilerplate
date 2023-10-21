@@ -10,7 +10,10 @@ interface Props<T extends IBaseModel, Q extends IListFetchParams> {
 const CrudBody = <T extends IBaseModel, Q extends IListFetchParams>({
   repository,
 }: Props<T, Q>): ReactElement => {
-  const { register } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -22,12 +25,13 @@ const CrudBody = <T extends IBaseModel, Q extends IListFetchParams>({
             <div style={{ width: '200px' }}>
               <b>{col.linkedField}</b>
             </div>
-            <div style={{ width: '200px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', width: '200px' }}>
               <input
                 key={`${col.linkedField}${index}`}
                 {...register(col.linkedField)}
                 style={{ width: '400px' }}
               />
+              <p style={{ color: 'red' }}>{String(errors[col.linkedField]?.message ?? '')}</p>
             </div>
           </div>
         ))}

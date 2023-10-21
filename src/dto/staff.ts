@@ -84,6 +84,15 @@ class StaffRepository extends BaseRepository<IStaff, IListFetchParams> {
         width: '150px',
         formatType: 'string',
       },
+      {
+        visible: true,
+        position: 1,
+        readonly: false,
+        linkedField: 'email',
+        type: 'string',
+        width: '150px',
+        formatType: 'string',
+      },
     ];
 
     this.formValidationSchema = z.object({

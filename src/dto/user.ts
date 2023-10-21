@@ -1,5 +1,5 @@
 import { BaseRepository } from '../common/commonClasses.ts';
-import { IBaseModel } from '../common/commonInterfaces.ts';
+import { IBaseModel, IListFetchParams } from '../common/commonInterfaces.ts';
 import { MODULE } from '../common/commonTypes.ts';
 
 export interface IUser extends IBaseModel {
@@ -25,7 +25,7 @@ interface IGeo {
   lng?: string;
 }
 
-class UserRepository extends BaseRepository<IUser> {
+class UserRepository extends BaseRepository<IUser, IListFetchParams> {
   constructor(moduleName: MODULE) {
     super(moduleName);
     this.gridFieldsOptions = [
